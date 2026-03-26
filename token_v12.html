@@ -392,7 +392,7 @@ function showSlide(n){
   document.querySelectorAll('.slide').forEach((s,i)=>s.classList.toggle('active',i===n));
   document.querySelectorAll('.dot').forEach((d,i)=>d.classList.toggle('on',i===n));
   if(n<4) anim('ch'+n,COUNTS[n]);
-  if(n===4) bars();
+  if(n===5) bars();
 }
 function anim(id,count){
   document.querySelectorAll('#'+id+' .chip').forEach(c=>c.classList.remove('show'));
