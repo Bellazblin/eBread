@@ -189,12 +189,6 @@ body {
   display: flex; z-index: 5;
 }
 .nav-btn {
-  width: 80px; height: 100%;
-  background: transparent; border: none;
-  cursor: pointer; opacity: 0;
-  -webkit-tap-highlight-color: transparent;
-}
-.pause-btn {
   flex: 1; height: 100%;
   background: transparent; border: none;
   cursor: pointer; opacity: 0;
@@ -212,11 +206,22 @@ body {
       <span class="header-eq">=</span>
       <span class="header-ciyuan">词元</span>
     </div>
-    <div class="header-definition">AI处理数据的最小单位</div>
+    <div class="header-definition">AI大模型处理信息的最小信息单位</div>
   </div>
 
   <!-- SLIDES — fixed height wrapper -->
   <div class="slides-wrapper">
+   <!-- Sintro -->
+
+    <div class="slide" id="s_intro">
+      <div class="content-card">
+        
+        <div class="sentence"> 一个AI语言大模型在理解人话的过程中，
+           它先做的是‘分词’，英文叫tokenization。
+</div>
+     
+        </div>
+          </div>
 
     <!-- S0 -->
     <div class="slide active" id="s0">
@@ -233,7 +238,7 @@ body {
         <div class="count-note">
           <p>5个字符</p>
           <p>→&nbsp;<b>4个词元</b></p>
-          <p>不仅是分字，而是分词组</p>
+          <p>重点是拆分出有意义的单元</p>
         </div>
       </div>
     </div>
@@ -294,30 +299,31 @@ body {
           <span class="chip" id="c3-5">)</span>
         </div>
         <div class="count-note">
-          <p>→&nbsp;<b>6个词元</b></p>
-        </div>
-      </div>
-    </div>
-    
-     <!-- S4 -->
-    <div class="slide" id="s5">
-      <div class="content-card">
-        <div class="final-eyebrow">
-          国家数据局 2026年3月官方把 Token 定名为词元
-        </div>
-        <div class="final-def">
-          词元是人工智能大模型为了<span class="hi">高效处理数据</span>，把数据进行拆分后的<span class="hi">「最小信息载体」</span>。
-        </div>
-        <div class="tags">
-          <span class="tag">可计量</span>
-          <span class="tag">可定价</span>
-          <span class="tag">可交易</span>
+          <p>→&nbsp;<b>6个词元(或者其他?)</b></p>
         </div>
       </div>
     </div>
 
-    <!-- S5 -->
+    
+
+    <!-- S4 -->
     <div class="slide" id="s4">
+      <div class="content-card">
+        <div class="final-eyebrow">
+          2026年3月国家数据局把Token翻译为"词元"
+        </div>
+        <div class="final-def">
+          官方定义:词元大模型处理信息的<span class="hi">最小信息单元</span>，具有智能时代可计量、可定价、可交易的特征。
+        </div>
+          <span class="tag">可计量</span>
+          <span class="tag">可定价</span>
+          <span class="tag">可交易</span>
+
+      </div>
+    </div>
+
+    <!-- S5 -->
+    <div class="slide" id="s5">
       <div class="content-card">
         <div class="card-eyebrow">截至2026年3月，中国日均词元调用量</div>
         <div class="stat-hero">
@@ -342,8 +348,6 @@ body {
      <div class="count-note"> 来源:国家数据局 https://shorturl.asia/SPQyD
       </div>
     </div>
-
-   
 
   </div><!-- slides-wrapper -->
 
@@ -374,68 +378,48 @@ body {
 
   <!-- INVISIBLE NAV -->
   <div class="nav-area">
-    <div class="nav-btn" onclick="prev()"></div>
-    <div class="pause-btn" onclick="togglePause()"></div>
+    <div class="nav-btn" onclick="prev()"></div> 
     <div class="nav-btn" onclick="next()"></div>
   </div>
 
 </div>
 
 <script>
-const BASE_DUR=[3400,3600,3200,3200,4200,4200];
-const COUNTS=[4,6,5,6,0,0];
-const TOTAL=6;
-let cur=0,timer=null,paused=false;
-let pStart=0,pElapsed=0,pDur=0;
+const COUNTS = [0, 4, 6, 5, 6, 0, 0];
+const TOTAL  = 7;
+let cur = 0;
 
-function showSlide(n){
-  document.querySelectorAll('.slide').forEach((s,i)=>s.classList.toggle('active',i===n));
-  document.querySelectorAll('.dot').forEach((d,i)=>d.classList.toggle('on',i===n));
-  if(n<4) anim('ch'+n,COUNTS[n]);
-  if(n===5) bars();
+function showSlide(n) {
+  document.querySelectorAll('.slide').forEach((s, i) => s.classList.toggle('active', i === n));
+  document.querySelectorAll('.dot').forEach((d, i) => d.classList.toggle('on', i === n));
+  if (n >= 1 && n <= 4) anim('ch' + (n - 1), COUNTS[n]);
+  if (n === 6) bars();
 }
-function anim(id,count){
-  document.querySelectorAll('#'+id+' .chip').forEach(c=>c.classList.remove('show'));
-  for(let i=0;i<count;i++){
-    (function(k){setTimeout(()=>{
-      const el=document.getElementById(id.replace('ch','c')+'-'+k);
-      if(el) el.classList.add('show');
-    },300+k*300);})(i);
+
+function anim(id, count) {
+  document.querySelectorAll('#' + id + ' .chip').forEach(c => c.classList.remove('show'));
+  for (let i = 0; i < count; i++) {
+    (function(k) {
+      setTimeout(() => {
+        const el = document.getElementById(id.replace('ch', 'c') + '-' + k);
+        if (el) el.classList.add('show');
+      }, 300 + k * 300);
+    })(i);
   }
 }
-function bars(){
-  ['b1','b2','b3'].forEach(id=>document.getElementById(id).style.width='0');
-  setTimeout(()=>document.getElementById('b1').style.width='7%',400);
-  setTimeout(()=>document.getElementById('b2').style.width='71%',750);
-  setTimeout(()=>document.getElementById('b3').style.width='100%',1100);
-}
-function startProg(dur,elapsed){
-  clearInterval(timer);
-  pDur=dur; pElapsed=elapsed||0;
-  pStart=Date.now()-pElapsed;
-  timer=setInterval(()=>{
-    if(paused) return;
-    const p=Math.min(100,(Date.now()-pStart)/pDur*100);
-    if(p>=100){
-      clearInterval(timer);
-      cur=(cur+1)%TOTAL;
-      showSlide(cur); startProg(BASE_DUR[cur]);
-    }
-  },40);
-}
-function togglePause(){
-  paused=!paused;
-  document.getElementById('pausedDot').classList.toggle('show',paused);
-  if(!paused){ pElapsed=Math.min(Date.now()-pStart,pDur); pStart=Date.now()-pElapsed; }
-}
-function jump(n){
-  if(paused){ paused=false; document.getElementById('pausedDot').classList.remove('show'); }
-  cur=n; showSlide(cur); startProg(BASE_DUR[cur]);
-}
-function prev(){ jump((cur+TOTAL-1)%TOTAL); }
-function next(){ jump((cur+1)%TOTAL); }
 
-showSlide(0); startProg(BASE_DUR[0]);
+function bars() {
+  ['b1', 'b2', 'b3'].forEach(id => document.getElementById(id).style.width = '0');
+  setTimeout(() => document.getElementById('b1').style.width = '7%',   400);
+  setTimeout(() => document.getElementById('b2').style.width = '71%',  750);
+  setTimeout(() => document.getElementById('b3').style.width = '100%', 1100);
+}
+
+function jump(n) { cur = n; showSlide(cur); }
+function prev()  { jump((cur + TOTAL - 1) % TOTAL); }
+function next()  { jump((cur + 1) % TOTAL); }
+
+showSlide(0);
 </script>
 </body>
 </html>
